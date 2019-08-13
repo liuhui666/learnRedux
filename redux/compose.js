@@ -27,3 +27,33 @@ export default function compose(...funcs) {
 
 // ===> 转换前 return a(b.apply(undefined, arguments));
 // ===> 转换后 return b(a.apply(undefined, arguments));
+
+/**
+ * 我们一步一步分解一下, func3 初始化的值为 funcs = [fn1,fn2,fn3], reduce执行
+
+   第一步时 
+
+　　a = fn1
+
+　　b = fn2 
+
+       a(b(...args)) = fn1(fn2(...args))
+
+　　(...args) => a(b(...args))   = (...args) = > fn1(fn2(...args))
+
+  第二步时
+
+      a =  (...ag) = > fn1(fn2(...ag))  // 避免和后面混淆，rest参数名修改为  ag
+
+      b = fn3
+
+      a(b(...args)) = a( fn3(...args) )  = fn1(fn2(    fn3(...args)   ))  // 这一步是关键，b(...args)执行后作为a函数的入参，也就是 ...ag = fn3(...args)
+
+　  (...args) => a(b(...args))   = (...args) = > fn1(fn2(fn3(...args))) 
+
+ 
+
+   所以最后返回的就是这样的一个函数  (...args) = > fn1(fn2(fn3(...args))) 
+
+   再多函数，也是以此类推。　　
+ */

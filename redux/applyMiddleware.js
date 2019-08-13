@@ -34,17 +34,17 @@ export default function applyMiddleware(...middlewares) {
 
 
 // redux-thunk 源码   需要结合第三方中间件 看一下
-function createThunkMiddleware(extraArgument) {
-  return ({ dispatch, getState }) => next => action => {
-    if (typeof action === 'function') {
-      return action(dispatch, getState, extraArgument);
-    }
+// function createThunkMiddleware(extraArgument) {
+//   return ({ dispatch, getState }) => next => action => {
+//     if (typeof action === 'function') {
+//       return action(dispatch, getState, extraArgument);
+//     }
 
-    return next(action);
-  };
-}
+//     return next(action);
+//   };
+// }
 
-const thunk = createThunkMiddleware();
-thunk.withExtraArgument = createThunkMiddleware;
+// const thunk = createThunkMiddleware();
+// thunk.withExtraArgument = createThunkMiddleware;
 
-export default thunk;
+// export default thunk;
